@@ -123,7 +123,7 @@ def build_epub(soup):
     title_ch = epub.EpubHtml(title="Title Page", file_name="title.xhtml", lang=LANGUAGE)
     title_ch.content = f"""<div class="title-page">
   <h1>{TITLE}</h1>
-  <p class="subtitle">Each concept building on the last</p>
+  <p class="subtitle">Observability from First Principles</p>
   <img class="title-logo" src="images/otel-logo.png" alt="">
   <p class="author">{AUTHOR}</p>
 </div>"""
@@ -341,7 +341,7 @@ def build_pdf(soup):
 <body>
   <div class="title-page"><div class="tp-inner">
     <h1 class="book-title">{TITLE}</h1>
-    <p class="book-subtitle">Each concept building on the last</p>
+    <p class="book-subtitle">Observability from First Principles</p>
     <img class="title-logo" src="otel-logo.png" alt="">
     <p class="book-author">{AUTHOR}</p>
   </div></div>
