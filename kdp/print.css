@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+/* KDP 6x9 trade paperback */
+@page {
+  size: 6in 9in;
+  margin-top: 0.5in;
+  margin-bottom: 0.625in;
+}
+
+@page :left {
+  margin-left: 0.75in;   /* inside / gutter */
+  margin-right: 0.5in;   /* outside */
+}
+
+@page :right {
+  margin-left: 0.5in;    /* outside */
+  margin-right: 0.75in;  /* inside / gutter */
+}
+
+@page title-page {
+  margin: 0;
+}
+
+@page copyright-page {
+  margin-top: 0.5in;
+  margin-bottom: 0.625in;
+}
+
+@page toc-page {
+  margin-top: 0.5in;
+  margin-bottom: 0.625in;
+}
+
+body {
+  font: 11pt/1.5 'Crimson Text', Georgia, serif;
+  color: #000;
+  widows: 2;
+  orphans: 2;
+}
+
+/* ---- Title page ---- */
+/* Page is 9in tall, margins eat ~1.125in, leaving ~7.875in content */
+.title-page {
+  page: title-page;
+  page-break-after: always;
+}
+
+.tp-inner {
+  text-align: center;
+}
+
+.book-title {
+  font: 2.2em/1.2 'Crimson Text', Georgia, serif;
+  font-weight: 400;
+  margin: 0 0 0.2em;
+  padding-top: 1.8in;
+  letter-spacing: 0.02em;
+}
+
+.book-subtitle {
+  font-style: italic;
+  color: #444;
+  font-size: 1.1em;
+  margin: 0 0 0;
+}
+
+.title-logo {
+  display: block;
+  margin: 0.8in auto 0;
+  width: 2.5in;
+  height: auto;
+}
+
+.book-author {
+  font-size: 1.2em;
+  margin: 1.4in 0 0;
+}
+
+/* ---- Copyright page ---- */
+.copyright-page {
+  page: copyright-page;
+  page-break-after: always;
+  padding-top: 65%;
+  font-size: 0.85em;
+  color: #444;
+}
+
+.copyright-page p {
+  margin: 0.3em 0;
+}
+
+.cp-note {
+  margin-top: 1.5em !important;
+}
+
+/* ---- TOC page ---- */
+.toc-page {
+  page: toc-page;
+  page-break-after: always;
+}
+
+.toc-heading {
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  border-bottom: 0.5pt solid #000;
+  padding-bottom: 0.3em;
+}
+
+.toc-entry {
+  padding: 0.15em 0;
+  font-size: 0.95em;
+}
+
+/* ---- Phase headings ---- */
+.phase {
+  font-variant: small-caps;
+  letter-spacing: 0.14em;
+  font-size: 1.15em;
+  color: #333;
+  text-align: center;
+  margin: 2.5em 0 1.2em;
+  border-bottom: 0.5pt solid #999;
+  padding-bottom: 0.4em;
+  page-break-after: avoid;
+}
+
+/* ---- Entries ---- */
+.entry {
+  margin-bottom: 1.5em;
+}
+
+.entry-head {
+  font-weight: 700;
+  font-size: 1.05em;
+  margin-bottom: 0.2em;
+  page-break-after: avoid;
+}
+
+.entry-num {
+  color: #666;
+  font-weight: 400;
+  font-size: 0.8em;
+  margin-right: 0.3em;
+}
+
+.entry p {
+  margin: 0.4em 0 0;
+  text-indent: 0;
+}
+
+/* ---- Terms ---- */
+.term { font-weight: 600; }
+.it { font-style: italic; }
+
+/* ---- Example blocks ---- */
+.ex {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.65em;
+  line-height: 1.5;
+  background: #f5f5f5;
+  border-left: 1.5pt solid #999;
+  padding: 0.6em 0.8em;
+  margin: 0.5em 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  page-break-inside: avoid;
+}
+
+/* ---- Definition lists ---- */
+.defs {
+  margin: 0.8em 0;
+  padding: 0;
+  display: block;
+}
+
+.defs dt {
+  font-weight: 600;
+  margin-top: 0.4em;
+}
+
+.defs dd {
+  margin: 0.1em 0 0.4em 1.5em;
+}
+
+/* ---- Notes ---- */
+.note {
+  font-style: italic;
+  color: #444;
+  font-size: 0.92em;
+  margin: 0.4em 0;
+}
+
+/* ---- Illustrations ---- */
+.ill {
+  display: block;
+  margin: 1.8em auto;
+  width: 100%;
+  height: auto;
+  page-break-inside: avoid;
+  page-break-before: avoid;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ---- About the Author ---- */
+.about-page {
+  page-break-before: always;
+  padding-top: 15%;
+}
+
+.about-heading {
+  font-variant: small-caps;
+  letter-spacing: 0.14em;
+  font-size: 1.15em;
+  color: #333;
+  text-align: center;
+  margin: 0 0 1.5em;
+  border-bottom: 0.5pt solid #999;
+  padding-bottom: 0.4em;
+}
