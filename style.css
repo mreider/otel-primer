@@ -10,7 +10,31 @@
     margin: 3em auto;
     padding: 2.5em 3em;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+    position: relative;
   }
+}
+
+/* download icons */
+.downloads {
+  position: absolute;
+  top: 1.5em;
+  right: 1.5em;
+  display: flex;
+  gap: 0.4em;
+}
+
+.downloads a {
+  display: block;
+}
+
+.downloads img {
+  width: 40px;
+  height: auto;
+  opacity: 0.7;
+}
+
+.downloads img:hover {
+  opacity: 1;
 }
 
 body {
