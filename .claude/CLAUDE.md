@@ -44,3 +44,4 @@ Only after alignment on all five questions should we write the entry and update 
 - **No JavaScript**: This is a static document. No interactivity, no animations.
 - **Concept order matters**: The entries are carefully sequenced. Do not reorder without verifying the constructivist dependency chain — each entry may only reference concepts introduced before it.
 - **No em dashes**: Use en dashes (`&ndash;`) with spaces around them, never em dashes (`&mdash;`). This applies to all content in index.html.
+- **Every entry needs a concrete example or illustration**: Each entry must include at least one `.ex` block, SVG illustration, or definition list. No entry should be prose-only.

@@ -28,32 +28,33 @@
       <li><a href="#signals"><span class="num">2</span> Signals</a></li>
       <li><a href="#metrics"><span class="num">3</span> Metrics</a></li>
       <li><a href="#metric-types"><span class="num">4</span> Metric Types</a></li>
-      <li><a href="#traces"><span class="num">5</span> Traces</a></li>
-      <li><a href="#spans"><span class="num">6</span> Spans</a></li>
-      <li><a href="#logs"><span class="num">7</span> Logs</a></li>
-      <li><a href="#attributes"><span class="num">8</span> Attributes</a></li>
-      <li><a href="#resources"><span class="num">9</span> Resources</a></li>
-      <li><a href="#semantic-conventions"><span class="num">10</span> Semantic Conventions</a></li>
-      <li><a href="#instrumentation"><span class="num">11</span> Instrumentation</a></li>
-      <li><a href="#exporters"><span class="num">12</span> Exporters</a></li>
-      <li><a href="#otlp"><span class="num">13</span> OTLP</a></li>
-      <li><a href="#collector"><span class="num">14</span> The Collector</a></li>
-      <li><a href="#pipelines"><span class="num">15</span> Pipelines</a></li>
-      <li><a href="#deployment-modes"><span class="num">16</span> Deployment Modes</a></li>
-      <li><a href="#trace-context"><span class="num">17</span> Trace Context</a></li>
-      <li><a href="#baggage"><span class="num">18</span> Baggage</a></li>
-      <li><a href="#sampling"><span class="num">19</span> Sampling</a></li>
-      <li><a href="#trace-aware-routing"><span class="num">20</span> Trace-Aware Routing</a></li>
-      <li><a href="#events"><span class="num">21</span> Events</a></li>
-      <li><a href="#span-links"><span class="num">22</span> Span Links</a></li>
-      <li><a href="#correlation"><span class="num">23</span> Correlation</a></li>
-      <li><a href="#log-correlation"><span class="num">24</span> Log Correlation</a></li>
-      <li><a href="#exemplars"><span class="num">25</span> Exemplars</a></li>
-      <li><a href="#service-maps"><span class="num">26</span> Service Maps</a></li>
-      <li><a href="#resource-detectors"><span class="num">27</span> Resource Detectors</a></li>
-      <li><a href="#collector-transforms"><span class="num">28</span> Collector Transforms</a></li>
-      <li><a href="#full-picture"><span class="num">29</span> The Full Picture</a></li>
-      <li><a href="#profiling"><span class="num">30</span> Profiling</a></li>
+      <li><a href="#outliers"><span class="num">5</span> Outliers</a></li>
+      <li><a href="#traces"><span class="num">6</span> Traces</a></li>
+      <li><a href="#spans"><span class="num">7</span> Spans</a></li>
+      <li><a href="#logs"><span class="num">8</span> Logs</a></li>
+      <li><a href="#attributes"><span class="num">9</span> Attributes</a></li>
+      <li><a href="#resources"><span class="num">10</span> Resources</a></li>
+      <li><a href="#semantic-conventions"><span class="num">11</span> Semantic Conventions</a></li>
+      <li><a href="#instrumentation"><span class="num">12</span> Instrumentation</a></li>
+      <li><a href="#exporters"><span class="num">13</span> Exporters</a></li>
+      <li><a href="#otlp"><span class="num">14</span> OTLP</a></li>
+      <li><a href="#collector"><span class="num">15</span> The Collector</a></li>
+      <li><a href="#pipelines"><span class="num">16</span> Pipelines</a></li>
+      <li><a href="#deployment-modes"><span class="num">17</span> Deployment Modes</a></li>
+      <li><a href="#trace-context"><span class="num">18</span> Trace Context</a></li>
+      <li><a href="#baggage"><span class="num">19</span> Baggage</a></li>
+      <li><a href="#sampling"><span class="num">20</span> Sampling</a></li>
+      <li><a href="#trace-aware-routing"><span class="num">21</span> Trace-Aware Routing</a></li>
+      <li><a href="#events"><span class="num">22</span> Events</a></li>
+      <li><a href="#span-links"><span class="num">23</span> Span Links</a></li>
+      <li><a href="#correlation"><span class="num">24</span> Correlation</a></li>
+      <li><a href="#log-correlation"><span class="num">25</span> Log Correlation</a></li>
+      <li><a href="#exemplars"><span class="num">26</span> Exemplars</a></li>
+      <li><a href="#service-maps"><span class="num">27</span> Service Maps</a></li>
+      <li><a href="#resource-detectors"><span class="num">28</span> Resource Detectors</a></li>
+      <li><a href="#collector-transforms"><span class="num">29</span> Collector Transforms</a></li>
+      <li><a href="#full-picture"><span class="num">30</span> The Full Picture</a></li>
+      <li><a href="#profiling"><span class="num">31</span> Profiling</a></li>
     </ol>
   </nav>
 
@@ -87,9 +88,9 @@
   <div class="entry" id="metrics">
     <div class="entry-head"><span class="entry-num">3.</span> Metrics</div>
     <p>Imagine ten thousand events per second scrolling past. No one can read them all. A <span class="term">metric</span> solves this by counting, averaging, or summarizing those events into a single number over a period of time.</p>
-    <p>Ten thousand requests become "450 per second." A thousand response times become "p99 latency is 320ms." Metrics turn overwhelming volume into readable patterns: is traffic growing? Is latency spiking? Are errors increasing?</p>
+    <p>Ten thousand requests become "422 per second." A thousand response times become a single number that represents the group. One way to summarize is with <span class="term">percentiles</span>. A percentile tells you what percentage of values fell below a given number. The p99 (99th percentile) means 99 out of 100 requests were faster than this value &ndash; only the slowest 1% were slower. The p50 is the median, the typical experience. The p95 captures most users.</p>
     <div class="ex">10,241 requests    →  "422 req/s"
- 9,712 durations     →  "p99 latency: 320ms"
+ 9,712 durations     →  "p50: 45ms, p95: 210ms, p99: 820ms"
    238 failures      →  "error rate: 2.3%"</div>
   </div>
 
@@ -102,7 +103,7 @@
       <dt>Gauge</dt>
       <dd>A value that goes up and down. Current memory usage, active connections, queue depth. A snapshot of the present moment.</dd>
       <dt>Histogram</dt>
-      <dd>A distribution of values across ranges. How many requests took 0&ndash;100ms? How many took 100&ndash;500ms? A histogram reveals whether most requests are fast with a few slow outliers, or whether everything is uniformly slow.</dd>
+      <dd>A distribution of values sorted into ranges called buckets. How many requests took 0&ndash;100ms? How many took 100&ndash;500ms? A histogram is what makes percentiles possible &ndash; by counting how many values land in each bucket, you can calculate the p50, p95, or p99.</dd>
     </dl>
     <svg class="ill" width="300" height="78" viewBox="0 0 300 78" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="18" y1="10" x2="18" y2="52" stroke="#777" stroke-width="0.4"/>
@@ -124,8 +125,43 @@
     </svg>
   </div>
 
+  <div class="entry" id="outliers">
+    <div class="entry-head"><span class="entry-num">5.</span> Outliers</div>
+    <p>An average can hide problems. If 95 requests take 50ms and 5 take 3,000ms, the average is 197ms &ndash; a number that describes nobody's actual experience. The fast majority masks the slow few.</p>
+    <p><span class="term">Outliers</span> are those slow few. Percentiles expose them where averages cannot. The p99 separates the worst 1% from the rest. When the p99 spikes but the p50 stays flat, you know the problem affects a small subset of requests &ndash; a specific customer, a particular query, one overloaded node.</p>
+    <p>This is why teams set alert thresholds on percentiles rather than averages. An alert that fires when p99 latency exceeds 500ms catches degradation that an average would smooth away.</p>
+    <svg class="ill" width="320" height="100" viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- axes -->
+      <line x1="24" y1="10" x2="24" y2="75" stroke="#777" stroke-width="0.5"/>
+      <line x1="24" y1="75" x2="300" y2="75" stroke="#777" stroke-width="0.5"/>
+      <!-- histogram bars: tall cluster left, long tail right -->
+      <rect x="30" y="50" width="18" height="25" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="52" y="18" width="18" height="57" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="74" y="10" width="18" height="65" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="96" y="22" width="18" height="53" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="118" y="42" width="18" height="33" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="140" y="56" width="18" height="19" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="162" y="64" width="18" height="11" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="184" y="68" width="18" height="7" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="206" y="70" width="18" height="5" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="228" y="72" width="18" height="3" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <rect x="250" y="72" width="18" height="3" stroke="#444" stroke-width="0.6" fill="none" rx="0.5"/>
+      <!-- p50 marker -->
+      <line x1="88" y1="78" x2="88" y2="82" stroke="#555" stroke-width="0.5"/>
+      <text x="88" y="90" text-anchor="middle" font-family="'Crimson Text', Georgia, serif" font-size="8" fill="#555" font-style="italic">p50</text>
+      <!-- p99 marker -->
+      <line x1="230" y1="78" x2="230" y2="82" stroke="#555" stroke-width="0.5"/>
+      <text x="230" y="90" text-anchor="middle" font-family="'Crimson Text', Georgia, serif" font-size="8" fill="#555" font-style="italic">p99</text>
+      <!-- threshold line -->
+      <line x1="195" y1="8" x2="195" y2="75" stroke="#999" stroke-width="0.5" stroke-dasharray="4 2"/>
+      <text x="195" y="98" text-anchor="middle" font-family="'Crimson Text', Georgia, serif" font-size="7" fill="#999" font-style="italic">threshold</text>
+      <!-- tail label -->
+      <text x="268" y="62" text-anchor="middle" font-family="'Crimson Text', Georgia, serif" font-size="7" fill="#555" font-style="italic">outliers</text>
+    </svg>
+  </div>
+
   <div class="entry" id="traces">
-    <div class="entry-head"><span class="entry-num">5.</span> Traces</div>
+    <div class="entry-head"><span class="entry-num">6.</span> Traces</div>
     <p>Metrics can tell you that latency is high, but not which service is responsible. When a user's request passes through five services, which one caused the delay?</p>
     <p>A <span class="term">trace</span> follows that single request from its entry point to its final response, recording the time spent at each service along the way. If a checkout request passes through gateway, api, orders, and database, the trace shows exactly where the time went:</p>
     <div class="ex">gateway    |-------- 1200ms --------|
@@ -136,7 +172,7 @@
   </div>
 
   <div class="entry" id="spans">
-    <div class="entry-head"><span class="entry-num">6.</span> Spans</div>
+    <div class="entry-head"><span class="entry-num">7.</span> Spans</div>
     <p>A trace is made of smaller pieces called <span class="term">spans</span>. Each span represents one operation: handling an HTTP request, querying a database, calling another service.</p>
     <p>Every span records a start time, a duration, and a status. Spans nest inside each other, forming a tree. The topmost span represents the entire request. Its children represent the steps within it. By reading the tree, you can see which operation took the longest and which one failed.</p>
     <div class="ex">span:
@@ -150,7 +186,7 @@
   </div>
 
   <div class="entry" id="logs">
-    <div class="entry-head"><span class="entry-num">7.</span> Logs</div>
+    <div class="entry-head"><span class="entry-num">8.</span> Logs</div>
     <p>Metrics tell you <span class="it">that</span> something is wrong. Traces show you <span class="it">where</span>. Logs explain <span class="it">why</span>.</p>
     <p>A <span class="term">log record</span> captures a single event at a specific moment: an error message, a stack trace, the exact input value that caused a failure. Each record carries a timestamp, a severity level (info, warn, error), and a message body. Where metrics summarize and traces narrate, logs preserve the raw detail.</p>
     <div class="ex">14:32:01 ERROR  checkout-svc
@@ -164,7 +200,7 @@
   <!-- ——————————————————————————— -->
 
   <div class="entry" id="attributes">
-    <div class="entry-head"><span class="entry-num">8.</span> Attributes</div>
+    <div class="entry-head"><span class="entry-num">9.</span> Attributes</div>
     <p>A span that says "HTTP request, 200ms" is vague. A span that says "GET /api/orders, 200ms, status=500, user_id=42" is useful.</p>
     <p>The difference is <span class="term">attributes</span>: key-value pairs attached to any signal. They provide the context that makes telemetry worth reading &ndash; the HTTP method, the endpoint, the response status, the customer tier. Attributes can be attached to spans, metrics, and logs alike.</p>
     <div class="ex">http.request.method  = GET
@@ -175,7 +211,7 @@ cart.item_count      = 3</div>
   </div>
 
   <div class="entry" id="resources">
-    <div class="entry-head"><span class="entry-num">9.</span> Resources</div>
+    <div class="entry-head"><span class="entry-num">10.</span> Resources</div>
     <p>Attributes describe what happened. <span class="term">Resources</span> describe who reported it.</p>
     <p>A resource is a set of attributes that identify the source of telemetry: the service name, the host, the version, the deployment environment. When multiple services report the same metric, the resource is what distinguishes them.</p>
     <div class="ex">service.name     = checkout-svc
@@ -185,7 +221,7 @@ host.name        = prod-checkout-7a3b</div>
   </div>
 
   <div class="entry" id="semantic-conventions">
-    <div class="entry-head"><span class="entry-num">10.</span> Semantic Conventions</div>
+    <div class="entry-head"><span class="entry-num">11.</span> Semantic Conventions</div>
     <p>If one team names an attribute <span class="it">http.status</span> and another names the same thing <span class="it">response_code</span>, no single query can find both.</p>
     <p><span class="term">Semantic conventions</span> are OpenTelemetry's shared naming rules. They define standard names for common concepts &ndash; <span class="it">http.request.method</span>, <span class="it">http.response.status_code</span>, <span class="it">db.system</span> &ndash; so that data from every team and every service can be queried in the same way.</p>
     <div class="ex">Team A:      http.status             = 200
@@ -200,7 +236,7 @@ Convention:  http.response.status_code = 200</div>
   <!-- ——————————————————————————— -->
 
   <div class="entry" id="instrumentation">
-    <div class="entry-head"><span class="entry-num">11.</span> Instrumentation</div>
+    <div class="entry-head"><span class="entry-num">12.</span> Instrumentation</div>
     <p>Code does not produce telemetry on its own. <span class="term">Instrumentation</span> is the code that creates spans, records metrics, and emits logs.</p>
     <p>OpenTelemetry offers two approaches. <span class="term">Automatic instrumentation</span> hooks into common libraries and frameworks &ndash; HTTP servers, database drivers, messaging clients &ndash; to produce telemetry without code changes. <span class="term">Manual instrumentation</span> uses the OpenTelemetry API directly, for custom business logic that libraries cannot cover.</p>
     <div class="ex"># automatic: wraps known libraries, no code changes
@@ -212,7 +248,7 @@ with tracer.start_as_current_span("process-payment"):
   </div>
 
   <div class="entry" id="exporters">
-    <div class="entry-head"><span class="entry-num">12.</span> Exporters</div>
+    <div class="entry-head"><span class="entry-num">13.</span> Exporters</div>
     <p>Instrumentation creates telemetry inside a running process. An <span class="term">exporter</span> sends it out.</p>
     <p>The exporter serializes spans, metrics, and logs into a structured format and transmits them to a destination &ndash; a collector, a backend, or a file. It is the boundary between your application and the rest of the telemetry pipeline.</p>
     <div class="ex">your application
@@ -225,7 +261,7 @@ collector or backend</div>
   </div>
 
   <div class="entry" id="otlp">
-    <div class="entry-head"><span class="entry-num">13.</span> OTLP</div>
+    <div class="entry-head"><span class="entry-num">14.</span> OTLP</div>
     <p>Exporters need a format to send data in. <span class="term">OTLP</span> (OpenTelemetry Protocol) is the standard wire format for all three signals.</p>
     <p>It can be carried over gRPC or HTTP, encoded as binary protobuf or JSON. Because it is a shared standard, any tool that speaks OTLP can receive telemetry from any application that speaks OTLP, regardless of programming language or vendor.</p>
     <div class="ex">POST /v1/traces HTTP/1.1
@@ -244,7 +280,7 @@ Content-Type: application/json
   <!-- ——————————————————————————— -->
 
   <div class="entry" id="collector">
-    <div class="entry-head"><span class="entry-num">14.</span> The Collector</div>
+    <div class="entry-head"><span class="entry-num">15.</span> The Collector</div>
     <p>Without a central hub, every service must send telemetry directly to every backend it needs to reach. Ten services and three backends means thirty connections to manage.</p>
     <p>The <span class="term">OpenTelemetry Collector</span> sits between services and backends. Services send telemetry to the Collector. The Collector processes it and forwards it to the right destinations. The number of connections drops from <span class="it">services &times; backends</span> to <span class="it">services + backends</span>.</p>
     <svg class="ill" width="300" height="92" viewBox="0 0 300 92" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -283,7 +319,7 @@ Content-Type: application/json
   </div>
 
   <div class="entry" id="pipelines">
-    <div class="entry-head"><span class="entry-num">15.</span> Pipelines</div>
+    <div class="entry-head"><span class="entry-num">16.</span> Pipelines</div>
     <p>The Collector is configured through <span class="term">pipelines</span>, defined in YAML. Each pipeline has three stages:</p>
     <dl class="defs">
       <dt>Receivers</dt>
@@ -309,7 +345,7 @@ Content-Type: application/json
   </div>
 
   <div class="entry" id="deployment-modes">
-    <div class="entry-head"><span class="entry-num">16.</span> Deployment Modes</div>
+    <div class="entry-head"><span class="entry-num">17.</span> Deployment Modes</div>
     <p>The Collector is a program &ndash; it needs to run somewhere. In most environments, that means Kubernetes. A few terms from that world are needed here.</p>
     <dl class="defs">
       <dt>Pod</dt>
@@ -368,7 +404,7 @@ Content-Type: application/json
   <!-- ——————————————————————————— -->
 
   <div class="entry" id="trace-context">
-    <div class="entry-head"><span class="entry-num">17.</span> Trace Context</div>
+    <div class="entry-head"><span class="entry-num">18.</span> Trace Context</div>
     <p>A trace follows a request across services. But when a request leaves one service and arrives at another, how does the second service know they belong to the same trace?</p>
     <p>Through a header. The W3C <span class="term">traceparent</span> header carries the trace ID, the current span ID, and trace flags. Every service reads this header, continues the trace, and passes it to the next service it calls.</p>
     <div class="ex">traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
@@ -377,7 +413,7 @@ Content-Type: application/json
   </div>
 
   <div class="entry" id="baggage">
-    <div class="entry-head"><span class="entry-num">18.</span> Baggage</div>
+    <div class="entry-head"><span class="entry-num">19.</span> Baggage</div>
     <p>Trace context carries telemetry identity &ndash; the trace ID and span ID. <span class="term">Baggage</span> uses the same propagation mechanism to carry application data.</p>
     <p>A frontend service might set <span class="it">user.tier=premium</span> in baggage. Every downstream service receives it automatically, without extra database lookups or API calls. Baggage values can then be added as attributes to spans, making business context available throughout the request.</p>
     <div class="ex">baggage: user.tier=premium,region=us-east-1
@@ -388,7 +424,7 @@ frontend  →  api  →  orders  →  database
   </div>
 
   <div class="entry" id="sampling">
-    <div class="entry-head"><span class="entry-num">19.</span> Sampling</div>
+    <div class="entry-head"><span class="entry-num">20.</span> Sampling</div>
     <p>At low traffic, you can keep every trace. At high traffic, storing everything becomes too expensive. <span class="term">Sampling</span> is the practice of choosing which traces to keep.</p>
     <dl class="defs">
       <dt>Head sampling</dt>
@@ -399,7 +435,7 @@ frontend  →  api  →  orders  →  database
   </div>
 
   <div class="entry" id="trace-aware-routing">
-    <div class="entry-head"><span class="entry-num">20.</span> Trace-Aware Routing</div>
+    <div class="entry-head"><span class="entry-num">21.</span> Trace-Aware Routing</div>
     <p>Tail sampling requires the complete trace &ndash; every span, from every service &ndash; at a single gateway replica. But when a trace has twelve spans arriving from five different DaemonSets, a normal load balancer scatters them across replicas. No replica sees the whole trace, and sampling breaks.</p>
     <p>The solution is <span class="term">trace-aware routing</span>. Instead of round-robin load balancing, each DaemonSet hashes the trace ID to choose which gateway replica receives the span. All spans sharing a trace ID are routed to the same replica, giving it the complete picture.</p>
     <div class="ex">exporters:
@@ -418,7 +454,7 @@ frontend  →  api  →  orders  →  database
   <!-- ——————————————————————————— -->
 
   <div class="entry" id="events">
-    <div class="entry-head"><span class="entry-num">21.</span> Events</div>
+    <div class="entry-head"><span class="entry-num">22.</span> Events</div>
     <p>Sometimes you want to record that something happened inside a span without creating a child span for it. An <span class="term">event</span> is a lightweight, timestamped annotation attached to a span.</p>
     <p>Each event has a name, a timestamp, and optional attributes. Events mark moments like a cache miss, a retry attempt, or a validation failure &ndash; things worth noting that do not need their own duration measurement.</p>
     <div class="ex">span: process-order  (340ms)
@@ -429,7 +465,7 @@ frontend  →  api  →  orders  →  database
   </div>
 
   <div class="entry" id="span-links">
-    <div class="entry-head"><span class="entry-num">22.</span> Span Links</div>
+    <div class="entry-head"><span class="entry-num">23.</span> Span Links</div>
     <p>Spans within a trace are connected by parent-child relationships. But some connections cross traces entirely. A queue consumer processes a message that was produced in a different trace. A batch job aggregates work from many traces.</p>
     <p><span class="term">Span links</span> express these relationships. They say "this span is related to that span" without changing either trace's structure. The two traces remain independent, but the connection between them is recorded.</p>
     <svg class="ill" width="280" height="68" viewBox="0 0 280 68" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -450,7 +486,7 @@ frontend  →  api  →  orders  →  database
   <!-- ——————————————————————————— -->
 
   <div class="entry" id="correlation">
-    <div class="entry-head"><span class="entry-num">23.</span> Correlation</div>
+    <div class="entry-head"><span class="entry-num">24.</span> Correlation</div>
     <p>Each signal answers its own question. <span class="term">Correlation</span> is the practice of connecting them so you can move between questions in a single investigation.</p>
     <p>The trace ID is the shared thread. A metric can reference a trace ID through an exemplar. A log record can carry the trace ID and span ID of the operation that produced it. A span already has its trace ID. With this shared identifier, you can navigate from an alert to a request to an error message &ndash; across all three signals.</p>
     <div class="ex">metric:  error_rate = 5.2%            ─┐
@@ -459,7 +495,7 @@ log:     "pool exhausted"             ─┘</div>
   </div>
 
   <div class="entry" id="log-correlation">
-    <div class="entry-head"><span class="entry-num">24.</span> Log Correlation</div>
+    <div class="entry-head"><span class="entry-num">25.</span> Log Correlation</div>
     <p>Correlation between logs and traces can be automatic. An OpenTelemetry <span class="term">log appender</span> injects the active trace ID and span ID into every log record emitted during a traced operation.</p>
     <p>Once injected, every log line is navigable: find a log, jump to its trace. View a span, see every log it produced. The signals stop being separate databases and become one connected record.</p>
     <div class="ex">before:  14:32:01 ERROR "Connection pool exhausted"
@@ -470,7 +506,7 @@ after:   14:32:01 ERROR "Connection pool exhausted"
   </div>
 
   <div class="entry" id="exemplars">
-    <div class="entry-head"><span class="entry-num">25.</span> Exemplars</div>
+    <div class="entry-head"><span class="entry-num">26.</span> Exemplars</div>
     <p>Metrics aggregate &ndash; that is their strength. A histogram can show that some requests took over one second, but not which ones.</p>
     <p>An <span class="term">exemplar</span> is a link from a metric data point to the specific trace that produced it. The metric says "something was slow." The exemplar says "here is one of the slow requests &ndash; follow this trace ID to see exactly what happened."</p>
     <svg class="ill" width="300" height="100" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -490,7 +526,7 @@ after:   14:32:01 ERROR "Connection pool exhausted"
   </div>
 
   <div class="entry" id="service-maps">
-    <div class="entry-head"><span class="entry-num">26.</span> Service Maps</div>
+    <div class="entry-head"><span class="entry-num">27.</span> Service Maps</div>
     <p>Nobody maintains an architecture diagram by hand. The traces maintain it for you.</p>
     <p>Every span records which service made a call and which service received it. Analyze enough traces and you get a live <span class="term">service map</span>: a topology of your system showing which services exist, how they connect, and where the dependencies run. It is always current because it is drawn from real traffic.</p>
     <svg class="ill" width="240" height="105" viewBox="0 0 240 105" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -516,7 +552,7 @@ after:   14:32:01 ERROR "Connection pool exhausted"
   <!-- ——————————————————————————— -->
 
   <div class="entry" id="resource-detectors">
-    <div class="entry-head"><span class="entry-num">27.</span> Resource Detectors</div>
+    <div class="entry-head"><span class="entry-num">28.</span> Resource Detectors</div>
     <p><span class="term">Resource detectors</span> run at startup and automatically discover the attributes that describe the environment: host name, cloud provider, Kubernetes namespace, OS type, container ID.</p>
     <p>The only resource attribute that teams typically set by hand is <span class="it">service.name</span>. Everything else &ndash; where the code is running, on what hardware, in which region &ndash; can be detected from the runtime environment.</p>
     <div class="ex">service.name   = checkout-svc         ← set by you
@@ -528,7 +564,7 @@ container.id   = a1b2c3d4e5f6         ← detected</div>
   </div>
 
   <div class="entry" id="collector-transforms">
-    <div class="entry-head"><span class="entry-num">28.</span> Collector Transforms</div>
+    <div class="entry-head"><span class="entry-num">29.</span> Collector Transforms</div>
     <p>The Collector can reshape telemetry in flight without redeploying any application. Its <span class="term">transform processor</span> modifies data as it passes through a pipeline:</p>
     <dl class="defs">
       <dt>Delete attributes</dt>
@@ -543,7 +579,7 @@ container.id   = a1b2c3d4e5f6         ← detected</div>
   </div>
 
   <div class="entry" id="full-picture">
-    <div class="entry-head"><span class="entry-num">29.</span> The Full Picture</div>
+    <div class="entry-head"><span class="entry-num">30.</span> The Full Picture</div>
     <p>Real incidents require all three signals working together.</p>
     <p>A metric triggers the alert: error rate spiked at 14:32. A trace narrows the scope: the payment service is timing out on calls to the database. A log explains why: "connection pool exhausted &ndash; max connections reached."</p>
     <p>No single signal is sufficient. Metrics establish <span class="it">when</span> and <span class="it">what</span>. Traces pinpoint <span class="it">where</span>. Logs reveal <span class="it">why</span>. Correlation lets you move between them. Together, they reach root cause.</p>
@@ -557,7 +593,7 @@ container.id   = a1b2c3d4e5f6         ← detected</div>
   </div>
 
   <div class="entry" id="profiling">
-    <div class="entry-head"><span class="entry-num">30.</span> Profiling</div>
+    <div class="entry-head"><span class="entry-num">31.</span> Profiling</div>
     <p>Traces show where time is spent across services. <span class="term">Profiling</span> shows where time is spent inside a single service &ndash; at the function level &ndash; by capturing the actual stack frames executing on the CPU.</p>
     <p>OpenTelemetry's profiling signal links profiles to traces through span context. A slow span does not just tell you the operation took 700ms; it connects to a flamegraph showing which functions consumed that time.</p>
     <div class="ex">processRequest ─────────────────────── 700ms ──────
