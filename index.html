@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenTelemetry Reference</title>
+  <meta name="description" content="A progressive, single-page reference to OpenTelemetry concepts — from telemetry basics to profiling.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+
+    <header class="site-header">
+      <h1 class="site-title">OpenTelemetry Reference</h1>
+      <p class="site-subtitle">28 concepts, from first principles to advanced instrumentation</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <div class="toc-heading">Contents</div>
+      <ol class="toc-list">
+        <li><a href="#telemetry"><span class="toc-num">01</span> Telemetry</a></li>
+        <li><a href="#three-signals"><span class="toc-num">02</span> Three Signals</a></li>
+        <li><a href="#metrics"><span class="toc-num">03</span> Metrics</a></li>
+        <li><a href="#metric-types"><span class="toc-num">04</span> Metric Types</a></li>
+        <li><a href="#traces"><span class="toc-num">05</span> Traces</a></li>
+        <li><a href="#spans"><span class="toc-num">06</span> Spans</a></li>
+        <li><a href="#logs"><span class="toc-num">07</span> Logs</a></li>
+        <li><a href="#attributes"><span class="toc-num">08</span> Attributes</a></li>
+        <li><a href="#resources"><span class="toc-num">09</span> Resources</a></li>
+        <li><a href="#semantic-conventions"><span class="toc-num">10</span> Semantic Conventions</a></li>
+        <li><a href="#instrumentation"><span class="toc-num">11</span> Instrumentation</a></li>
+        <li><a href="#exporters"><span class="toc-num">12</span> Exporters</a></li>
+        <li><a href="#data-formats"><span class="toc-num">13</span> Data Formats</a></li>
+        <li><a href="#collector"><span class="toc-num">14</span> The Collector</a></li>
+        <li><a href="#pipeline"><span class="toc-num">15</span> The Pipeline</a></li>
+        <li><a href="#sampling"><span class="toc-num">16</span> Sampling</a></li>
+        <li><a href="#service-maps"><span class="toc-num">17</span> Service Maps</a></li>
+        <li><a href="#correlation"><span class="toc-num">18</span> Correlation</a></li>
+        <li><a href="#full-picture"><span class="toc-num">19</span> The Full Picture</a></li>
+        <li><a href="#events"><span class="toc-num">20</span> Events</a></li>
+        <li><a href="#trace-context"><span class="toc-num">21</span> Trace Context</a></li>
+        <li><a href="#baggage"><span class="toc-num">22</span> Baggage</a></li>
+        <li><a href="#span-links"><span class="toc-num">23</span> Span Links</a></li>
+        <li><a href="#log-correlation"><span class="toc-num">24</span> Log Correlation</a></li>
+        <li><a href="#exemplars"><span class="toc-num">25</span> Exemplars</a></li>
+        <li><a href="#resource-detectors"><span class="toc-num">26</span> Resource Detectors</a></li>
+        <li><a href="#collector-transforms"><span class="toc-num">27</span> Collector Transforms</a></li>
+        <li><a href="#profiling"><span class="toc-num">28</span> Profiling</a></li>
+      </ol>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- Phase 1: Foundations -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="phase-divider">
+      <span class="phase-label">Foundations</span>
+    </div>
+
+    <section class="concept" id="telemetry">
+      <div class="concept-number">01</div>
+      <h2>Telemetry</h2>
+      <div class="concept-body">
+        <p>Two systems can run the same code. One fails in silence&mdash;no clues, no trail. The other fails and tells you why, because it was built to emit data about itself.</p>
+        <p>That data is <strong>telemetry</strong>: measurements and records a system produces about its own behavior. Without it, a running service is a black box. With it, you can see inside.</p>
+        <div class="concept-panel concept-panel--key">
+          <p>Telemetry is not debugging output or error logs alone. It is the complete set of signals a system emits so that operators can understand what is happening, when, and where.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="three-signals">
+      <div class="concept-number">02</div>
+      <h2>Three Signals</h2>
+      <div class="concept-body">
+        <p>OpenTelemetry organizes telemetry into three signal types. Each answers a different class of question about your system.</p>
+        <div class="def-list">
+          <div class="def-item">
+            <span class="def-term signal-metric">Metrics</span>
+            <span class="def-desc">Measure how much, how fast, how often. Metrics aggregate events into numbers over time intervals.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term signal-trace">Traces</span>
+            <span class="def-desc">Follow a single request through multiple services. Traces narrate the journey and reveal where time is spent.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term signal-log">Logs</span>
+            <span class="def-desc">Record specific events with messages and context. Logs capture discrete moments&mdash;what happened at a particular point in time.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="metrics">
+      <div class="concept-number">03</div>
+      <h2>Metrics</h2>
+      <div class="concept-body">
+        <p>Imagine 300 events scrolling past per second. No human can read them all. A metric solves this by aggregating raw events into measurements taken over time intervals&mdash;a running count, a rate, a statistical summary.</p>
+        <p>Where raw events show individual moments, metrics reveal <strong>patterns</strong>: is traffic growing? Is latency spiking? Are errors increasing? The answer is always a number measured over a window of time.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="metric-types">
+      <div class="concept-number">04</div>
+      <h2>Metric Types</h2>
+      <div class="concept-body">
+        <p>Different questions require different kinds of measurement. OpenTelemetry defines three fundamental metric types.</p>
+        <div class="def-list">
+          <div class="def-item">
+            <span class="def-term signal-metric">Counter</span>
+            <span class="def-desc">A value that only goes up. Total requests served, bytes sent, errors encountered. Monotonically increasing.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term signal-metric">Gauge</span>
+            <span class="def-desc">A value that goes up and down. Current temperature, active connections, memory usage. A snapshot of the present.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term signal-metric">Histogram</span>
+            <span class="def-desc">A distribution of values across buckets. Request latency, payload sizes. Reveals shape&mdash;are most requests fast with a few slow outliers, or is everything uniformly slow?</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="traces">
+      <div class="concept-number">05</div>
+      <h2>Traces</h2>
+      <div class="concept-body">
+        <p>A metric dashboard tells you latency is high. Logs show individual errors. But neither answers: <em>which service in the chain is the bottleneck?</em></p>
+        <p>A <strong>trace</strong> follows one request from entry to exit across every service it touches. It records the path the request took and the time spent at each step. When a checkout request passes through gateway &rarr; api &rarr; orders &rarr; db, the trace shows you that the orders service took 700ms of the total 1.2s.</p>
+        <div class="concept-panel concept-panel--example">
+          <div class="diagram">gateway    |----- 1200ms ------|
+  api      |--- 950ms ---|
+    orders    |-- 700ms --|
+      db         |- 80ms -|</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- Phase 2: Anatomy of Telemetry -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="phase-divider">
+      <span class="phase-label">Anatomy of Telemetry</span>
+    </div>
+
+    <section class="concept" id="spans">
+      <div class="concept-number">06</div>
+      <h2>Spans</h2>
+      <div class="concept-body">
+        <p>A trace is not a single unit&mdash;it is composed of <strong>spans</strong>. Each span represents one operation: an HTTP handler, a database query, an RPC call. Spans record a start time, a duration, and a status (ok or error).</p>
+        <p>Spans nest inside each other, forming a tree. A parent span might represent an API request; its children might represent the database call and cache lookup that happen within it. By examining the tree, you can see exactly where time is spent and which operation failed.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="logs">
+      <div class="concept-number">07</div>
+      <h2>Logs</h2>
+      <div class="concept-body">
+        <p>Traces tell you <em>where</em> a failure occurred. Metrics tell you <em>how often</em>. Logs tell you <em>why</em>.</p>
+        <p>A log record captures a discrete event at a specific moment: an error message, a stack trace, the exact input that caused a failure. Each record carries a timestamp, a severity level, and a body. When connected to a span, a log transforms from an isolated line of text into a moment within a larger story.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="attributes">
+      <div class="concept-number">08</div>
+      <h2>Attributes</h2>
+      <div class="concept-body">
+        <p>A span that says "HTTP request, 200ms" is not very useful. But a span that says "GET /api/orders, 200ms, status=500, user_id=42, region=us-east" tells you everything you need.</p>
+        <p><strong>Attributes</strong> are key-value pairs attached to any signal&mdash;spans, metrics, or logs. They provide the context that makes telemetry actionable: the HTTP method, the endpoint, the response status, the customer tier. In metrics, attributes are sometimes called <em>dimensions</em> because they let you slice and filter aggregated data.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="resources">
+      <div class="concept-number">09</div>
+      <h2>Resources</h2>
+      <div class="concept-body">
+        <p>Attributes describe <em>what happened</em>. Resources describe <em>who reported it</em>.</p>
+        <p>A <strong>resource</strong> identifies the entity producing telemetry: the service name, deployment environment, host, version, and container ID. When ten services emit the same metric, it is the resource that tells you which service each data point came from.</p>
+        <div class="concept-panel concept-panel--example">
+          <div class="diagram">service.name       = checkout-svc
+service.version    = 2.4.1
+deployment.env     = production
+host.name          = prod-checkout-7a3b
+container.id       = a1b2c3d4e5f6</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="semantic-conventions">
+      <div class="concept-number">10</div>
+      <h2>Semantic Conventions</h2>
+      <div class="concept-body">
+        <p>If one team names an attribute <code>http.status</code> and another calls it <code>response_code</code>, a single query cannot find both. Independent naming leads to fragmented data.</p>
+        <p><strong>Semantic conventions</strong> are OpenTelemetry's shared naming rules. They define standard attribute names for common concepts: <code>http.request.method</code>, <code>http.response.status_code</code>, <code>db.system</code>, <code>rpc.service</code>. When every service follows the same conventions, one query works across your entire fleet.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- Phase 3: Infrastructure -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="phase-divider">
+      <span class="phase-label">Infrastructure</span>
+    </div>
+
+    <section class="concept" id="instrumentation">
+      <div class="concept-number">11</div>
+      <h2>Instrumentation</h2>
+      <div class="concept-body">
+        <p>Code does not emit telemetry by itself. <strong>Instrumentation</strong> is the act of adding telemetry-producing code to a program, bridging the gap between execution and observability.</p>
+        <p>OpenTelemetry provides two approaches. <strong>Automatic instrumentation</strong> hooks into frameworks and libraries to emit spans and metrics without code changes. <strong>Manual instrumentation</strong> uses the OTel API directly&mdash;creating spans, recording metrics, emitting logs&mdash;for custom business logic that libraries cannot cover.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="exporters">
+      <div class="concept-number">12</div>
+      <h2>Exporters</h2>
+      <div class="concept-body">
+        <p>Instrumentation creates telemetry inside a process. To leave the process, telemetry must be serialized into a structured, standardized format and sent somewhere.</p>
+        <p>An <strong>exporter</strong> does this: it takes the in-memory spans, metrics, and logs and transmits them over a protocol to a backend or collector. OTLP (OpenTelemetry Protocol) is the standard wire format, ensuring any compatible receiver can understand the data regardless of the language that produced it.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="data-formats">
+      <div class="concept-number">13</div>
+      <h2>Data Formats</h2>
+      <div class="concept-body">
+        <p>The same telemetry data can be encoded in different ways. The format is the envelope, not the message.</p>
+        <div class="def-list">
+          <div class="def-item">
+            <span class="def-term">OTLP/gRPC</span>
+            <span class="def-desc">Binary protobuf over gRPC. Efficient, bidirectional, the default for production.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">OTLP/HTTP</span>
+            <span class="def-desc">Protobuf or JSON over HTTP. Easier to route through proxies and load balancers.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">JSON</span>
+            <span class="def-desc">Human-readable. Useful for debugging and development, but larger on the wire.</span>
+          </div>
+        </div>
+        <p>Different backends may require different formats. Exporters handle the translation.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="collector">
+      <div class="concept-number">14</div>
+      <h2>The Collector</h2>
+      <div class="concept-body">
+        <p>Without a central hub, every service must know about every backend&mdash;N services &times; M backends = N&times;M connections. The <strong>OpenTelemetry Collector</strong> reduces this to N + M: services send to the collector, and the collector sends to backends.</p>
+        <p>The Collector has three stages:</p>
+        <div class="def-list">
+          <div class="def-item">
+            <span class="def-term">Receivers</span>
+            <span class="def-desc">Accept incoming telemetry in various formats (OTLP, Jaeger, Prometheus, etc.).</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">Processors</span>
+            <span class="def-desc">Transform data in flight&mdash;batch, filter, enrich, sample, drop.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">Exporters</span>
+            <span class="def-desc">Send processed data to one or more backends.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="pipeline">
+      <div class="concept-number">15</div>
+      <h2>The Pipeline</h2>
+      <div class="concept-body">
+        <p>A <strong>pipeline</strong> is the Collector's blueprint, defined in YAML. It wires together receivers, processors, and exporters into a data flow for each signal type.</p>
+        <div class="concept-panel concept-panel--example">
+          <div class="diagram">service:
+  pipelines:
+    traces:
+      receivers:  [otlp]
+      processors: [batch, tail_sampling]
+      exporters:  [otlp/jaeger, debug]
+    metrics:
+      receivers:  [otlp, prometheus]
+      processors: [batch]
+      exporters:  [otlp/backend]</div>
+        </div>
+        <p>Each signal type (traces, metrics, logs) gets its own pipeline with its own processing rules. You can run multiple pipelines simultaneously, each with different receivers, processors, and destinations.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- Phase 4: Scale & Topology -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="phase-divider">
+      <span class="phase-label">Scale &amp; Topology</span>
+    </div>
+
+    <section class="concept" id="sampling">
+      <div class="concept-number">16</div>
+      <h2>Sampling</h2>
+      <div class="concept-body">
+        <p>At low traffic, you can keep every trace. At scale, you cannot&mdash;storage and processing costs grow linearly with volume. <strong>Sampling</strong> is the practice of deciding which traces to keep and which to drop.</p>
+        <div class="def-list">
+          <div class="def-item">
+            <span class="def-term">Head sampling</span>
+            <span class="def-desc">Decide at the start of a trace (e.g., keep 10% randomly). Simple but blind to outcomes.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">Tail sampling</span>
+            <span class="def-desc">Decide after a trace completes. Keep all errors and slow requests, drop routine successes. Smarter but requires buffering.</span>
+          </div>
+        </div>
+        <p>The goal is to preserve the traces that matter&mdash;errors, high latency, unusual patterns&mdash;while reducing the volume of routine, healthy traffic.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="service-maps">
+      <div class="concept-number">17</div>
+      <h2>Service Maps</h2>
+      <div class="concept-body">
+        <p>No one draws the architecture diagram&mdash;the traces draw it. Each span records which service made a call and which service received it. By analyzing trace data, you can automatically reconstruct the topology of your system: which services exist, how they connect, and where the dependencies are.</p>
+        <p>Service maps are not manually maintained documentation. They are a live projection of actual traffic patterns, always current, always accurate.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="correlation">
+      <div class="concept-number">18</div>
+      <h2>Correlation</h2>
+      <div class="concept-body">
+        <p>Each signal tells a different part of the story. Metrics say <em>that</em> something is wrong. Traces show <em>where</em> in the request path. Logs explain <em>why</em>.</p>
+        <p>The <code>trace_id</code> is the thread that connects all three. A metric can include an exemplar pointing to a trace ID. A log record can carry the trace ID and span ID of the operation that produced it. With this shared identifier, you can navigate from an alert to the exact request to the exact error message&mdash;across all three signals.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="full-picture">
+      <div class="concept-number">19</div>
+      <h2>The Full Picture</h2>
+      <div class="concept-body">
+        <p>Real incident investigation uses all three signals together. A typical workflow:</p>
+        <div class="concept-panel concept-panel--key">
+          <p><strong class="signal-metric">Metrics</strong> trigger an alert: error rate spiked at 14:32.</p>
+          <p><strong class="signal-trace">Traces</strong> narrow the scope: the payment service is timing out on requests to the database.</p>
+          <p><strong class="signal-log">Logs</strong> reveal the cause: "connection pool exhausted&mdash;max connections reached."</p>
+        </div>
+        <p>No single signal is sufficient. Metrics establish <em>when</em> and <em>what</em>. Traces pinpoint <em>where</em>. Logs explain <em>why</em>. Together, they reveal root cause.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- Phase 5: Advanced Concepts -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="phase-divider">
+      <span class="phase-label">Advanced Concepts</span>
+    </div>
+
+    <section class="concept" id="events">
+      <div class="concept-number">20</div>
+      <h2>Events</h2>
+      <div class="concept-body">
+        <p>Not every moment needs its own span. <strong>Events</strong> are lightweight, timestamped annotations attached to a span. They mark significant moments&mdash;a cache miss, a retry attempt, a validation failure&mdash;without the overhead of creating child spans.</p>
+        <p>Each event has a name, a timestamp, and optional attributes. They are the right tool when you need to record <em>that something happened</em> within a span, but do not need to measure its duration.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="trace-context">
+      <div class="concept-number">21</div>
+      <h2>Trace Context</h2>
+      <div class="concept-body">
+        <p>When a request crosses a service boundary, how does the next service know it is part of the same trace? Through <strong>context propagation</strong>.</p>
+        <p>The W3C <code>traceparent</code> header carries four fields in a single HTTP header:</p>
+        <div class="concept-panel concept-panel--example">
+          <div class="diagram">traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+              ││                  ││                    ││            ││
+           version          trace-id              span-id       trace-flags</div>
+        </div>
+        <p>Every service extracts this header, continues the trace, and propagates it to the next call. This is the invisible thread that holds a distributed trace together.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="baggage">
+      <div class="concept-number">22</div>
+      <h2>Baggage</h2>
+      <div class="concept-body">
+        <p>Trace context carries telemetry identity (trace ID, span ID). <strong>Baggage</strong> carries application data across services using the same propagation mechanism.</p>
+        <p>A frontend might set <code>user.tier=premium</code> in baggage. Every downstream service receives it automatically&mdash;no extra database lookups, no additional API calls. Baggage values can be read by span processors and added as attributes, enabling business-context-aware telemetry throughout the request.</p>
+        <div class="concept-panel concept-panel--warning">
+          <p>Baggage travels with every request. Keep values small and be aware that all downstream services can read them.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="span-links">
+      <div class="concept-number">23</div>
+      <h2>Span Links</h2>
+      <div class="concept-body">
+        <p>Not all relationships are parent-child. A message queue consumer processes a message that was produced by a different trace. A batch job aggregates work from many requests. These are <em>related</em> but not <em>nested</em>.</p>
+        <p><strong>Span links</strong> connect spans across traces without changing ownership. They say "this span is related to that span" while preserving each trace's independent lineage. Common uses: async message processing, fan-in aggregation, and scheduled jobs triggered by earlier requests.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="log-correlation">
+      <div class="concept-number">24</div>
+      <h2>Log Correlation</h2>
+      <div class="concept-body">
+        <p>An OTel <strong>log appender</strong> automatically injects trace context&mdash;<code>trace_id</code> and <code>span_id</code>&mdash;into every log record emitted within an active span. This transforms logs from isolated text into navigable entries.</p>
+        <p>From any log line, you can jump to the full distributed trace. From any span, you can see every log that was emitted during its execution. The three signals stop being separate databases and become one connected story.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="exemplars">
+      <div class="concept-number">25</div>
+      <h2>Exemplars</h2>
+      <div class="concept-body">
+        <p>Metrics aggregate. That is their strength&mdash;and their limitation. When a histogram shows a latency spike, which specific request caused it?</p>
+        <p><strong>Exemplars</strong> are links from aggregated metric data points back to the individual traces that produced them. A histogram bucket recording 1.2s latency can carry an exemplar pointing to the exact trace ID of one of those slow requests. The metric tells you <em>something is slow</em>; the exemplar takes you to <em>this specific slow request</em>.</p>
+      </div>
+    </section>
+
+    <section class="concept" id="resource-detectors">
+      <div class="concept-number">26</div>
+      <h2>Resource Detectors</h2>
+      <div class="concept-body">
+        <p><strong>Resource detectors</strong> automatically discover environment attributes at startup: the host name, cloud provider, Kubernetes namespace, OS type, container ID. No hardcoding, no config files.</p>
+        <p>The SDK runs registered detectors at initialization and merges their findings into the resource. The only attribute teams typically set manually is <code>service.name</code>&mdash;everything else can be auto-detected from the runtime environment.</p>
+        <div class="def-list">
+          <div class="def-item">
+            <span class="def-term">Host detector</span>
+            <span class="def-desc"><code>host.name</code>, <code>host.arch</code></span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">OS detector</span>
+            <span class="def-desc"><code>os.type</code>, <code>os.description</code></span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">Cloud detector</span>
+            <span class="def-desc"><code>cloud.provider</code>, <code>cloud.region</code>, <code>cloud.availability_zone</code></span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">K8s detector</span>
+            <span class="def-desc"><code>k8s.namespace.name</code>, <code>k8s.pod.name</code>, <code>k8s.deployment.name</code></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="collector-transforms">
+      <div class="concept-number">27</div>
+      <h2>Collector Transforms</h2>
+      <div class="concept-body">
+        <p>The Collector's <strong>transform processor</strong> reshapes telemetry in flight through configuration alone&mdash;no application redeployment required.</p>
+        <p>Common operations:</p>
+        <div class="def-list">
+          <div class="def-item">
+            <span class="def-term">Delete attributes</span>
+            <span class="def-desc">Strip PII (email addresses, user names) before data leaves your infrastructure.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">Add attributes</span>
+            <span class="def-desc">Enrich all telemetry with environment tags (region, cluster, team).</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">Filter spans</span>
+            <span class="def-desc">Drop noisy health-check spans that add volume without insight.</span>
+          </div>
+          <div class="def-item">
+            <span class="def-term">Rename</span>
+            <span class="def-desc">Normalize attribute names to match semantic conventions without changing application code.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="profiling">
+      <div class="concept-number">28</div>
+      <h2>Profiling</h2>
+      <div class="concept-body">
+        <p>Traces show <em>where</em> time is spent. Logs show <em>what</em> happened. Profiling shows <em>why</em> at the code level&mdash;by capturing the actual stack frames executing on the CPU.</p>
+        <p>OpenTelemetry's profiling signal (currently experimental) links profiles to traces via span context. A slow span does not just tell you "this operation took 700ms"&mdash;it connects to a flamegraph showing exactly which functions consumed that time. One click from a slow span to the code that caused it.</p>
+        <div class="concept-panel concept-panel--warning">
+          <p>Profiling is an emerging signal in OpenTelemetry. The specification and SDK support are still under active development.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>
+        Built on concepts from <a href="https://opentelemetry.io/docs/">OpenTelemetry</a>
+        &middot;
+        <a href="https://github.com/mreider/otel-reference">Source</a>
+      </p>
+    </footer>
+
+  </div>
+</body>
+</html>
