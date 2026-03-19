@@ -4,15 +4,15 @@ This file provides guidance to AI coding agents working with code in this reposi
 
 ## Project Overview
 
-A single-page reference site that teaches OpenTelemetry concepts progressively. 28 entries, each building on the last, following Vygotskian constructivist principles. No interactivity — just clear, well-structured prose.
+A single-page primer that teaches OpenTelemetry concepts progressively. Each entry builds on the last, following Vygotskian constructivist principles. No interactivity — just clear, well-structured prose.
 
-Live at otel-ref.mreider.com, hosted via GitHub Pages.
+Live at otel-primer.mreider.com, hosted via GitHub Pages.
 
 ## Core Principles
 
 1. **Constructivist flow**: Each concept introduces exactly one new idea and references only concepts already established above it. Never N+1 — always N.
 2. **Simple language**: Explain concepts in the simplest accurate terms. Concrete before abstract. Start with what you can observe, then name it.
-3. **No zen, no poetry**: This is a reference, not a meditation. Direct, clear descriptions only.
+3. **No zen, no poetry**: This is a primer, not a meditation. Direct, clear descriptions only.
 4. **Technical accuracy**: Never invent details about OpenTelemetry. Only use information from specifications and documentation. Flag contradictions immediately.
 5. **Print-inspired design**: The CSS follows the aesthetic of a printed dictionary — Crimson Text serif, white background, clean typography. No animations, no dark mode, no glassmorphism.
 6. **Cite sources**: Reference OpenTelemetry specification documents or documentation when making technical claims.
@@ -20,7 +20,7 @@ Live at otel-ref.mreider.com, hosted via GitHub Pages.
 ## Repository Structure
 
 ```
-index.html    # The entire reference — single page
+index.html    # The entire primer — single page
 style.css     # Print-inspired typography
 CNAME         # Custom domain for GitHub Pages
 ```
