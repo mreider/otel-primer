@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL \"https://raw.githubusercontent.com/open-telemetry/opentelemetry.io/main/static/img/logos/opentelemetry-icon-color.svg\")",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/cncf/artwork/main/projects/opentelemetry/icon/color/opentelemetry-icon-color.svg\")",
+      "Bash(curl -sL \"https://opentelemetry.io\")",
+      "Bash(curl:*)",
+      "Bash(perl:*)",
+      "Bash(python3 -c \"from PIL import Image; print\\(''pillow available''\\)\")",
+      "Bash(git add:*)",
+      "Bash(git:*)",
+      "Bash(gh repo:*)"
+    ]
+  }
+}
